@@ -1,25 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import foodsJson from './foods.json';
+import { Row, Divider, Button } from 'antd';
+import { useState } from 'react';
+import FoodBox from './components/Foodbox';
+import AddFoodForm from './components/AddFoodForm';
+import Search from './components/Searchbar';
 
 function App() {
+  const [foods, setFoods] = useState(foodsJson);
+const [searchFood, setSearchFood] = useState('')
+
+    const addNewFood = (newFood) => {
+      setFoods((goodFood) => {
+        return[...goodFood, newFood]
+      });
+      // const updatedFoods = [...foods, newFood];
+      // setFoods(updatedFoods);
+    };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddFoodForm addNewFood = {addNewFood} />
+      <Button>{addNewFood}</Button>
+      <Search searchFood={searchFood} onSearch = {setSearchFood} />
+      <Divider>Food List</Divider>
+      
+      <Row style={{ width: '100%', justifyContent: 'center' }}>
+        {foods
+        .filter((elem, i) => {
+          return elem.name.toLowerCase().includes(searchFood.toLowerCase());
+        })
+      .map((elem, i) => {
+          return (
+            < FoodBox
+              foods = {elem}
+              key = {elem.name + i}
+            />
+          )
+        })}
+      </Row>
     </div>
   );
 }
-
-export default App;
+export default App

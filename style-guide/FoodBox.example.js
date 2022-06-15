@@ -4,7 +4,8 @@
 // Remember to import Ant Design components before using them.
 import { Card, Col, Button } from 'antd';
 
-// Iteration 2
+// Iteration 2 Create a new component named FoodBox that takes the prop food, which is an object. It should display the card with food information coming from the food prop. To render the content, use the structure provided in the file style-guide/FoodBox.example.js.
+
 function FoodBox(props) {
   return (
     <Col>
